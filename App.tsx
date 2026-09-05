@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Alert, Button, FlatList, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 interface Todo {
   id: number;
@@ -67,10 +68,20 @@ export default function App() {
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => {
               return (
-                <TouchableOpacity onPress={() => handleDeleteTodo(item.id)}>
-                  <Text style={styles.todoItem}>{item.name}</Text>
-                </TouchableOpacity>
-              )
+                <View style={styles.todoItem}>
+                  <Text style={styles.todoText}>{item.name}</Text>
+
+                  <TouchableOpacity
+                    onPress={() => handleDeleteTodo(item.id)}
+                  >
+                    <Ionicons
+                      name="close-circle"
+                      size={26}
+                      color="red"
+                    />
+                  </TouchableOpacity>
+                </View>
+              );
             }}
           />
         </View>
@@ -107,6 +118,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  todoText: {
     fontSize: 18,
+    flex: 1,
   },
 });
